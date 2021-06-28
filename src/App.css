@@ -11,6 +11,9 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f1e5d5;
+  background-image: url(images/pexels-skitterphoto-390089.jpg);
+  background-position: top left;
+  background-size: cover;
   color: #333;
 }
 
@@ -70,6 +73,12 @@ small {
 
 .button:hover {
   background-color: #666;
+}
+
+.errorMsg {
+  font-size: 20px;
+  color: #4bb84b;
+  font-weight: bold;
 }
 
 .card--list {

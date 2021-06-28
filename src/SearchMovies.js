@@ -3,7 +3,23 @@ import MovieCard from './MovieCard'
 
 export default function SearchMovies() {
 	const [query, setQuery] = useState('');  
-	const [movies, getMovies] = useState([]);  
+	const [movies, getMovies] = useState([]); 
+	const [error, setError] = useState(null) 
+
+	// const SearchMovie = async (e) => {
+	// 	useEffect(() => {
+	// 		try {
+	// 			const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=0d1421f367805101c86113bdf60de880&language=en-US&query=${query}&page=1&include_adult=false`)
+	// 				if(!response.ok){
+	// 					throw Error('Please type a search term.')	
+	// 				}				
+	// 			const data = await response.json(); //convert data from fetch call to json format
+	// 			getMovies(data.results); //pass to getMovies() to the data.results
+	// 		} catch(err){   //if try doesn't work we need to handle error catch to display errors 
+	// 			setError(err.message) //server sending this to console. 
+	// 		}
+	// 	})	
+	// }
 
 	const searchMovies = async (e) => {
 		e.preventDefault();
@@ -12,10 +28,13 @@ export default function SearchMovies() {
 
 		try {
 			const response = await fetch(url);  //use react's fetch() function with url arg
+			if(!response.ok){
+				throw Error('Please type a search term.')	
+			}
 			const data = await response.json(); //convert data from fetch call to json format
-			getMovies(data.results); //pass to getMovies() to the data.results			
+			getMovies(data.results); //pass to getMovies() to the data.results
 		} catch(err){   //if try doesn't work we need to handle error catch to display errors 
-			console.log(err);
+			setError(err.message) //server sending this to console. 
 		}
 	}
 
@@ -39,8 +58,10 @@ export default function SearchMovies() {
 
 				<button 
 					className='button' 
-					type='submit'>Search
-				</button>
+					type='submit'>Search					
+				</button>	
+
+					{ error && <div className="errorMsg">{ error }</div> }
 			</form>
 
 			<div className='card--list'>
